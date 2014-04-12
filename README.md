@@ -66,7 +66,7 @@ list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(de
 ```
 ### Changelogs
 
-#### 0.0.1
+#### 0.0.2
 
 - initial release
 

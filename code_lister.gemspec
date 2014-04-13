@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Burin Choomnuan"]
   spec.email         = ["agilecreativity@gmail.com"]
   spec.summary       = %q{Search, filter files easily using the power of ruby}
-  spec.description   = %q{Use ruby library to search/filter files}
+  spec.description   = %q{List/filter files similar to 'find' command in Linux/Unix based system}
   spec.homepage      = "https://github.com/agilecreativity/code_lister"
   spec.license       = "MIT"
   spec.files         = `git ls-files -z`.split("\x0")

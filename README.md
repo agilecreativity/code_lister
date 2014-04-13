@@ -29,20 +29,40 @@ List all pdf and epub files in the `/opts/downloads/` directory recursively
 ```sh
 $code_lister find --base-dir /opt/downloads/ --exts pdf epub --recursive
 ```
+
+Usage:
+
+```
+Usage:
+  code_lister find
+
+Options:
+  -b, [--base-dir=BASE_DIR]            # Base directory
+                                       # Default: /Users/agilecreativity/Dropbox/spikes/code_explorer
+  -e, [--exts=one two three]           # List of extensions to search for
+                                       # Default: ["rb"]
+  -i, [--inc-words=one two three]      # List of words to be included in the result if any
+  -x, [--exc-words=one two three]      # List of words to be excluded from the result if any
+  -r, [--recursive], [--no-recursive]  # Search for files recursively
+  -v, [--version], [--no-version]      # Display version information
+
+List files based on select multiple criteria
+```
+
 #### Using as ruby library
 
 ```ruby
 require 'code_lister'
 include CodeLister
 # To search for everything that ends in '*.java' and '*.rb" recursively
-list1 = CodeLister.files(base_dir: "spec/fixtures", extensions: %w(rb java), recursive: true)
+list1 = CodeLister.files(base_dir: "spec/fixtures", exts: %w(rb java), recursive: true)
 puts list1
 ```
 
 ### Development/Testing
 
 ```sh
-git clone git@github.com/agilecreativity/code_lister.git
+git clone https://github.com/agilecreativity/code_lister.git
 bundle
 rake -T
 
@@ -58,13 +78,17 @@ From inside `Pry` or `IRB`
 ```ruby
 #include CodeLister
 # To search for everything that ends in '*.java' and '*.rb" recursively
-list1 = CodeLister.files(base_dir: "spec/fixtures", extensions: %w(rb java), recursive: true)
+list1 = CodeLister.files(base_dir: "spec/fixtures", exts: %w(rb java), recursive: true)
 puts list1
 
 # To filter out the result list
 list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(demo test))
 ```
 ### Changelogs
+
+#### 0.0.3
+
+- Update README.md to include better sample usage, and misc cleanup.
 
 #### 0.0.2
 

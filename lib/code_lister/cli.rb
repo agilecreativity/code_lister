@@ -2,57 +2,62 @@ require 'thor'
 require_relative 'core_ext/hash'
 
 module CodeLister
-  class CLI < Thor
+  class BaseCLI < Thor
+    def self.shared_options
+      method_option :base_dir,
+                    aliases: "-b",
+                    desc: "Base directory",
+                    default: Dir.pwd
+
+      method_option :exts,
+                    aliases: "-e",
+                    desc: "List of extensions to search for",
+                    type: :array,
+                    default: []
+
+      method_option :inc_words,
+                    aliases: "-n",
+                    desc: "List of words to be included in the result if any",
+                    type: :array,
+                    default: []
+
+      method_option :exc_words,
+                    aliases: "-x",
+                    desc: "List of words to be excluded from the result if any",
+                    type: :array,
+                    default: []
+
+      method_option :ignore_case,
+                    aliases: "-i",
+                    desc: "Match case insensitively",
+                    type: :boolean,
+                    default: true
+
+      method_option :recursive,
+                    aliases: "-r",
+                    desc: "Search for files recursively",
+                    type: :boolean,
+                    default: true
+
+      method_option :version,
+                    aliases: "-v",
+                    desc: "Display version information",
+                    type: :boolean,
+                    default: false
+    end
+  end
+end
+
+module CodeLister
+  class CLI < CodeLister::BaseCLI
 
     desc "find", "List files by extensions, patterns, and simple criteria"
-
-    method_option :base_dir,
-                  aliases: "-b",
-                  desc: "Base directory",
-                  default: Dir.pwd
-
-    method_option :exts,
-                  aliases: "-e",
-                  desc: "List of extensions to search for",
-                  type: :array,
-                  default: []
-
-    method_option :inc_words,
-                  aliases: "-n",
-                  desc: "List of words to be included in the result if any",
-                  type: :array,
-                  default: []
-
-    method_option :exc_words,
-                  aliases: "-x",
-                  desc: "List of words to be excluded from the result if any",
-                  type: :array,
-                  default: []
-
-    method_option :ignore_case,
-                  aliases: "-i",
-                  desc: "Match case insensitively",
-                  type: :boolean,
-                  default: true
-
-    method_option :recursive,
-                  aliases: "-r",
-                  desc: "Search for files recursively",
-                  type: :boolean,
-                  default: true
-
-    method_option :version,
-                  aliases: "-v",
-                  desc: "Display version information",
-                  type: :boolean,
-                  default: false
+    shared_options
     def find
-
       if options[:version]
         puts "You are using CodeLister Version #{CodeLister::VERSION}"
         exit
       end
-
       CodeLister::Main.run(options.symbolize_keys)
     end
 

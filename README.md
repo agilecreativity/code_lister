@@ -154,6 +154,10 @@ always welcome.
 
 ### Changelogs
 
+#### 0.0.5
+
+- Refactoring the CLI options to make it easy for re-use in other library.
+
 #### 0.0.4
 
 - Add `ignore-case` option

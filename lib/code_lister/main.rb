@@ -4,10 +4,9 @@ module CodeLister
 
       def run(options = {})
         args = default_options.merge(options)
-
         files = CodeLister.files(args)
 
-        ## Now filter out the list any?
+        # Now filter out the list if any
         inc_words = args.fetch(:inc_words, [])
         exc_words = args.fetch(:exc_words, [])
 

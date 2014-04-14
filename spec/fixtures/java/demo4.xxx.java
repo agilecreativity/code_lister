@@ -1,1 +1,1 @@
-// file: test/fixtures/java/demo4.java
+// file: test/fixtures/java/demo4.xxx.java

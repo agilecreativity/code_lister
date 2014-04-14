@@ -13,7 +13,8 @@ module CodeLister
 
         files = CodeLister.filter(files, inc_words: inc_words,
                                          exc_words: exc_words)
-        # TODO: remove when done!
+
+        # Note: for now just print out the list of files
         puts files
 
         files
@@ -25,6 +26,7 @@ module CodeLister
         options = {
           base_dir: Dir.pwd,
           recursive: false,
+          ignore_case: true,
           inc_words: [],
           exc_words: [],
           exts: []

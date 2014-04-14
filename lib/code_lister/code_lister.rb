@@ -25,28 +25,57 @@ module CodeLister
     def filter(file_list, args = {})
       opts = {
         inc_words: [],
-        exc_words: []
+        exc_words: [],
+        ignore_case: true
       }.merge(args)
 
-      inc_words = opts[:inc_words]
-      exc_words = opts[:exc_words]
+      inc_words   = opts[:inc_words]
+      exc_words   = opts[:exc_words]
+      ignore_case = opts[:ignore_case]
 
-      take_any!(file_list, inc_words)
-      drop_any!(file_list, exc_words)
+      take_any!(file_list, opts)
+      drop_any!(file_list, opts)
 
       file_list
     end
 
-    private
+    protected
 
-    def take_any!(file_list, words)
-      # need to take only the filename
-      file_list.select! { |f| words.any? { |w| /#{w}/ =~ File.basename(f) } } unless words.empty?
+    def take_any!(file_list, args = {})
+      words = args[:inc_words]
+      ignore_case = args[:ignore_case]
+
+      unless words.empty?
+        file_list.select! do |f|
+          words.any? do |w|
+            if ignore_case
+              /#{w}/i =~ File.basename(f)
+            else
+              /#{w}/  =~ File.basename(f)
+            end
+          end
+        end
+      end
+
       file_list
     end
 
-    def drop_any!(file_list, words)
-      file_list.delete_if { |f| words.any? { |w| /#{w}/ =~ File.basename(f) } } unless words.empty?
+    def drop_any!(file_list, args = {})
+      words = args[:exc_words]
+      ignore_case = args[:ignore_case]
+
+      unless words.empty?
+        file_list.delete_if do |f|
+          words.any? do |w|
+            if ignore_case
+              /#{w}/i =~ File.basename(f)
+            else
+              /#{w}/  =~ File.basename(f)
+            end
+          end
+        end
+      end
+
       file_list
     end
 

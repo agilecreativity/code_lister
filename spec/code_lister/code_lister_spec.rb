@@ -39,8 +39,18 @@ describe CodeLister do
 
     it "filters out the words that we don't want" do
       expect(CodeLister.filter(file_list, exc_words: %w(demo1))).to eq ["spec/fixtures/demo2.xxx.rb"]
-
       expect(CodeLister.filter(file_list, exc_words: %w(xxx))).to eq []
+    end
+
+    context 'with ignore_case' do
+      it 'ignores case by default' do
+        expect(CodeLister.filter(file_list, exc_words: %w(DeMo1))).to eq CodeLister.filter(file_list, exc_words: %w(demo1))
+        expect(CodeLister.filter(file_list, exc_words: %w(DeMo1))).to eq ["spec/fixtures/demo2.xxx.rb"]
+      end
+      it 'does not ignore case if specified' do
+        expect(CodeLister.filter(file_list, exc_words: %w(DeMo1), ignore_case: false)).to eq ["spec/fixtures/demo1.xxx.rb",
+                                                                                              "spec/fixtures/demo2.xxx.rb" ]
+      end
     end
   end
 

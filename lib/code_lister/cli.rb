@@ -1,9 +1,10 @@
 require 'thor'
 require_relative 'core_ext/hash'
+
 module CodeLister
   class CLI < Thor
 
-    desc "find", "List files by extension, patterns, and other criteria"
+    desc "find", "List files by extensions, patterns, and simple criteria"
 
     method_option :base_dir,
                   aliases: "-b",
@@ -14,10 +15,10 @@ module CodeLister
                   aliases: "-e",
                   desc: "List of extensions to search for",
                   type: :array,
-                  default: %w(rb)
+                  default: []
 
     method_option :inc_words,
-                  aliases: "-i",
+                  aliases: "-n",
                   desc: "List of words to be included in the result if any",
                   type: :array,
                   default: []
@@ -28,11 +29,17 @@ module CodeLister
                   type: :array,
                   default: []
 
+    method_option :ignore_case,
+                  aliases: "-i",
+                  desc: "Match case insensitively",
+                  type: :boolean,
+                  default: true
+
     method_option :recursive,
                   aliases: "-r",
                   desc: "Search for files recursively",
                   type: :boolean,
-                  default: false
+                  default: true
 
     method_option :version,
                   aliases: "-v",
@@ -58,16 +65,18 @@ Usage:
   code_lister find
 
 Options:
-  -b, [--base-dir=BASE_DIR]            # Base directory
-                                       # Default: /Users/agilecreativity/Dropbox/spikes/code_explorer
-  -e, [--exts=one two three]           # List of extensions to search for
-                                       # Default: ["rb"]
-  -i, [--inc-words=one two three]      # List of words to be included in the result if any
-  -x, [--exc-words=one two three]      # List of words to be excluded from the result if any
-  -r, [--recursive], [--no-recursive]  # Search for files recursively
-  -v, [--version], [--no-version]      # Display version information
+  -b, [--base-dir=BASE_DIR]                # Base directory
+                                           # Default: . (current directory)
+  -e, [--exts=one two three]               # List of extensions to search for
+  -n, [--inc-words=one two three]          # List of words to be included in the result if any
+  -x, [--exc-words=one two three]          # List of words to be excluded from the result if any
+  -i, [--ignore-case], [--no-ignore-case]  # Match case insensitively
+                                           # Default: true
+  -r, [--recursive], [--no-recursive]      # Search for files recursively
+                                           # Default: true
+  -v, [--version], [--no-version]          # Display version information
 
-List files based on select multiple criteria
+List files by extensions, patterns, and simple criteria
       EOS
     end
 

@@ -3,7 +3,9 @@ require_relative 'core_ext/hash'
 
 module CodeLister
   class BaseCLI < Thor
+
     def self.shared_options
+
       method_option :base_dir,
                     aliases: "-b",
                     desc: "Base directory",
@@ -12,6 +14,12 @@ module CodeLister
       method_option :exts,
                     aliases: "-e",
                     desc: "List of extensions to search for",
+                    type: :array,
+                    default: []
+
+      method_option :non_exts,
+                    aliases: "-f",
+                    desc: "List of files without extension to search for",
                     type: :array,
                     default: []
 
@@ -52,7 +60,9 @@ module CodeLister
   class CLI < CodeLister::BaseCLI
 
     desc "find", "List files by extensions, patterns, and simple criteria"
+
     shared_options
+
     def find
       if options[:version]
         puts "You are using CodeLister Version #{CodeLister::VERSION}"
@@ -67,12 +77,13 @@ module CodeLister
     def usage
       puts <<-EOS
 Usage:
-  code_lister find
+  code_lister find [OPTIONS]
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
-                                           # Default: . (current directory)
+                                           # Default: /home/bchoomnuan/Dropbox/spikes/code_lister
   -e, [--exts=one two three]               # List of extensions to search for
+  -f, [--non-exts=one two three]           # List of files without extension to search for
   -n, [--inc-words=one two three]          # List of words to be included in the result if any
   -x, [--exc-words=one two three]          # List of words to be excluded from the result if any
   -i, [--ignore-case], [--no-ignore-case]  # Match case insensitively

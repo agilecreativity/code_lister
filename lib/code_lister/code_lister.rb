@@ -10,15 +10,21 @@ module CodeLister
         base_dir: Dir.pwd,
         recursive: false,
         exts: [],
+        non_exts: []
       }.merge(args)
 
       base_dir = opts[:base_dir]
       raise CustomError, "The directory #{base_dir} is not valid or or not readable!" unless File.exists?(base_dir)
-      wildcard = opts[:recursive] ? '**' : ''
-      exts = opts[:exts]
-      patterns = File.join(base_dir, wildcard, "*.{#{exts.join(",")}}")
 
-      Dir.glob(patterns).sort
+      wildcard = opts[:recursive] ? '**' : ''
+      exts     = opts[:exts]
+      non_exts = opts[:non_exts]
+
+      file_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(",")}}"))
+      file_with_no_extension = no_extension_files(base_dir, wildcard, non_exts)
+
+      # combine the result
+      (file_with_extension + file_with_no_extension).sort
     end
 
     # Filter out the list based on given list of words
@@ -39,7 +45,18 @@ module CodeLister
       file_list
     end
 
-    protected
+    private
+
+    # List files that do not have the extension
+    #
+    # @return list of files that does not have any extension
+    def no_extension_files(base_dir, wildcard, non_exts = [])
+      list = []
+      unless non_exts.empty?
+        list = Dir.glob(File.join(base_dir, wildcard, "{#{non_exts.join(',')}}"))
+      end
+      list
+    end
 
     def take_any!(file_list, args = {})
       words = args[:inc_words]

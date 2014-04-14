@@ -4,6 +4,7 @@ module CodeLister
 
       def run(options = {})
         args = default_options.merge(options)
+
         files = CodeLister.files(args)
 
         # Now filter out the list if any
@@ -28,7 +29,8 @@ module CodeLister
           ignore_case: true,
           inc_words: [],
           exc_words: [],
-          exts: []
+          exts: [],
+          non_exts: []
         }
       end
     end

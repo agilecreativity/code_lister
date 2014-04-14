@@ -123,6 +123,7 @@ new_list = CodeLister.filter(file_list, inc_words: %w(some list of word),
 
 ```sh
 git clone https://github.com/agilecreativity/code_lister.git
+cd code_lister
 bundle
 rake -T
 
@@ -153,6 +154,10 @@ the compatibility as the result. Please let me know if you find any problem. Pul
 always welcome.
 
 ### Changelogs
+
+#### 0.0.6
+
+- Add `--non-exts` option that make it possible to include files without extension.
 
 #### 0.0.5
 

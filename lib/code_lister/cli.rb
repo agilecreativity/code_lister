@@ -1,74 +1,24 @@
 require 'thor'
+require 'agile_utils'
 require_relative 'core_ext/hash'
-
 module CodeLister
-  class BaseCLI < Thor
-
-    def self.shared_options
-
-      method_option :base_dir,
-                    aliases: "-b",
-                    desc: "Base directory",
-                    default: Dir.pwd
-
-      method_option :exts,
-                    aliases: "-e",
-                    desc: "List of extensions to search for",
-                    type: :array,
-                    default: []
-
-      method_option :non_exts,
-                    aliases: "-f",
-                    desc: "List of files without extension to search for",
-                    type: :array,
-                    default: []
-
-      method_option :inc_words,
-                    aliases: "-n",
-                    desc: "List of words to be included in the result if any",
-                    type: :array,
-                    default: []
-
-      method_option :exc_words,
-                    aliases: "-x",
-                    desc: "List of words to be excluded from the result if any",
-                    type: :array,
-                    default: []
-
-      method_option :ignore_case,
-                    aliases: "-i",
-                    desc: "Match case insensitively",
-                    type: :boolean,
-                    default: true
-
-      method_option :recursive,
-                    aliases: "-r",
-                    desc: "Search for files recursively",
-                    type: :boolean,
-                    default: true
-
-      method_option :version,
-                    aliases: "-v",
-                    desc: "Display version information",
-                    type: :boolean,
-                    default: false
-    end
-  end
-end
-
-module CodeLister
-  class CLI < CodeLister::BaseCLI
-
+  class CLI < Thor
     desc "find", "List files by extensions, patterns, and simple criteria"
-
-    shared_options
-
+    method_option *AgileUtils::Options::BASE_DIR
+    method_option *AgileUtils::Options::EXTS
+    method_option *AgileUtils::Options::NON_EXTS
+    method_option *AgileUtils::Options::INC_WORDS
+    method_option *AgileUtils::Options::EXC_WORDS
+    method_option *AgileUtils::Options::IGNORE_CASE
+    method_option *AgileUtils::Options::RECURSIVE
+    method_option *AgileUtils::Options::VERSION
     def find
-      if options[:version]
+      opts = options.symbolize_keys
+      if opts[:version]
         puts "You are using CodeLister Version #{CodeLister::VERSION}"
         exit
       end
-      CodeLister::Main.run(options.symbolize_keys)
+      CodeLister::Main.run(opts)
     end
 
     # Note: we don't use help so that we can run :r !./bin/code_lister help find
@@ -81,11 +31,11 @@ Usage:
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
-                                           # Default: /home/bchoomnuan/Dropbox/spikes/code_lister
+                                           # Default: . (current directory)
   -e, [--exts=one two three]               # List of extensions to search for
-  -f, [--non-exts=one two three]           # List of files without extension to search for
-  -n, [--inc-words=one two three]          # List of words to be included in the result if any
-  -x, [--exc-words=one two three]          # List of words to be excluded from the result if any
+  -f, [--non-exts=one two three]           # List of extensions to search for
+  -n, [--inc-words=one two three]          # List of words to be included in the result
+  -x, [--exc-words=one two three]          # List of words to be excluded from the result
   -i, [--ignore-case], [--no-ignore-case]  # Match case insensitively
                                            # Default: true
   -r, [--recursive], [--no-recursive]      # Search for files recursively

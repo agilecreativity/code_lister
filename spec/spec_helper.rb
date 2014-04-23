@@ -16,5 +16,5 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
-require_relative "../lib/code_lister"
+require_relative '../lib/code_lister'
 include CodeLister

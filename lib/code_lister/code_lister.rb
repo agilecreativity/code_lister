@@ -35,10 +35,6 @@ module CodeLister
         ignore_case: true
       }.merge(args)
 
-      inc_words   = opts[:inc_words]
-      exc_words   = opts[:exc_words]
-      ignore_case = opts[:ignore_case]
-
       take_any!(file_list, opts)
       drop_any!(file_list, opts)
 

@@ -1,7 +1,6 @@
 module CodeLister
   class Main
     class << self
-
       def run(options = {})
         args = default_options.merge(options)
 
@@ -13,25 +12,20 @@ module CodeLister
 
         files = CodeLister.filter(files, inc_words: inc_words,
                                          exc_words: exc_words)
-
-        # Note: for now just print out the list of files
         puts files
-
         files
       end
 
       private
 
       def default_options
-        options = {
-          base_dir: Dir.pwd,
-          recursive: false,
+        { base_dir: Dir.pwd,
+          recursive: true,
           ignore_case: true,
           inc_words: [],
           exc_words: [],
           exts: [],
-          non_exts: []
-        }
+          non_exts: [] }
       end
     end
   end

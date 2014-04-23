@@ -2,11 +2,11 @@
 
 [![Gem Version](https://badge.fury.io/rb/code_lister.svg)](http://badge.fury.io/rb/code_lister)
 
-This is the simple gem to search/filter the files based on simple criteria.
-It provides the functionality similar to subset of `find` command in Linux/Unix system.
+Find/filter files based on simple criteria like `extension`, include/exclude some words in the name.
+It provides the functionality similar to subset of `find | grep` command in Linux/Unix system.
 
-Initially it was part of my internal project. I extracted this out as a gem so
-that I can re-use it in other project. I hope you will find it useful.
+Initially this was part of my internal project. I extracted this out as a gem so
+that I can re-use it in other project.
 
 ### Installation
 
@@ -36,14 +36,15 @@ Usage/Synopsis:
 
 ```
 Usage:
-  code_lister find
+  code_lister find [OPTIONS]
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
                                            # Default: . (current directory)
   -e, [--exts=one two three]               # List of extensions to search for
-  -n, [--inc-words=one two three]          # List of words to be included in the result if any
-  -x, [--exc-words=one two three]          # List of words to be excluded from the result if any
+  -f, [--non-exts=one two three]           # List of extensions to search for
+  -n, [--inc-words=one two three]          # List of words to be included in the result
+  -x, [--exc-words=one two three]          # List of words to be excluded from the result
   -i, [--ignore-case], [--no-ignore-case]  # Match case insensitively
                                            # Default: true
   -r, [--recursive], [--no-recursive]      # Search for files recursively
@@ -56,8 +57,6 @@ List files by extensions, patterns, and simple criteria
 Example Usage:
 
 - Find all java and ruby files in a given directory
-
-e.g.
 
 ```ruby
 
@@ -83,7 +82,6 @@ spec/fixtures/demo1.xxx.rb
 spec/fixtures/demo2.xxx.rb
 spec/fixtures/java/demo3.xxx.java
 spec/fixtures/java/demo4.xxx.java
-
 ```
 
 - Same as previous step, but filter out result that contain the word `demo3` or `demo4`
@@ -130,11 +128,7 @@ rake -T
 # Play around with it using Pry
 rake pry
 
-# Or play around with it using IRB
-rake irb
-```
-
-From inside `Pry` or `IRB`
+From inside `Pry`
 
 ```ruby
 include CodeLister
@@ -154,6 +148,10 @@ the compatibility as the result. Please let me know if you find any problem. Pul
 always welcome.
 
 ### Changelogs
+
+#### 0.0.7
+
+- Make use of the 'agile_utils' gem for better code re-use
 
 #### 0.0.6
 

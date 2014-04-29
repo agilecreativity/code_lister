@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = CodeLister::VERSION
   spec.authors       = ['Burin Choomnuan']
   spec.email         = ['agilecreativity@gmail.com']
-  spec.summary       = %q{List/filter files like 'find | grep' command in Linux/Unix based system}
-  spec.description   = %q{List/filter files similar to 'find | grep' command in Linux/Unix based system}
+  spec.summary       = %q{List/filter files like 'find then grep' command in Linux/Unix based system}
+  spec.description   = %q{List/filter files similar to 'find then grep' command in Linux/Unix based system}
   spec.homepage      = 'https://github.com/agilecreativity/code_lister'
   spec.license       = 'MIT'
   spec.files         = `git ls-files -z`.split("\x0")
@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
   spec.add_runtime_dependency 'thor', '~> 0.19'
-  spec.add_runtime_dependency 'agile_utils', '~> 0.0.5'
-  spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'rake', '~> 10.1'
+  spec.add_runtime_dependency 'agile_utils', '~> 0.0.8'
+  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'rake', '~> 10.3'
   spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'guard-rspec', '~> 4.2'
   spec.add_development_dependency 'awesome_print', '~> 1.2'

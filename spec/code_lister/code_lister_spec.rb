@@ -1,6 +1,5 @@
 require_relative '../spec_helper'
 describe CodeLister do
-
   let(:file_list) {
     CodeLister.files(base_dir: 'spec/fixtures', exts: %w(xxx.rb), recursive: true)
   }

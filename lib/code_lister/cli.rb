@@ -1,6 +1,5 @@
 require 'thor'
 require 'agile_utils'
-require_relative 'core_ext/hash'
 module CodeLister
   class CLI < Thor
     desc "find", "List files by extensions, patterns, and simple criteria"

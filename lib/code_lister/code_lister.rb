@@ -1,9 +1,6 @@
 module CodeLister
-
   CustomError = Class.new(StandardError)
-
   class << self
-
     # List files base on some extension
     def files(args = {})
       opts = {
@@ -91,6 +88,5 @@ module CodeLister
 
       file_list
     end
-
   end
 end

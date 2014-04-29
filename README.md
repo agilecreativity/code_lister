@@ -1,6 +1,8 @@
 ## code_lister
 
 [![Gem Version](https://badge.fury.io/rb/code_lister.svg)](http://badge.fury.io/rb/code_lister)
+[![Dependency Status](https://gemnasium.com/agilecreativity/code_lister.png)](https://gemnasium.com/agilecreativity/code_lister)
+[![Code Climate](https://codeclimate.com/github/agilecreativity/code_lister.png)](https://codeclimate.com/github/agilecreativity/code_lister)
 
 Find/filter files based on simple criteria like `extension`, include/exclude some words in the name.
 It provides the functionality similar to subset of `find | grep` command in Linux/Unix system.
@@ -83,15 +85,12 @@ spec/fixtures/demo2.xxx.rb
 spec/fixtures/java/demo3.xxx.java
 spec/fixtures/java/demo4.xxx.java
 ```
-
 - Same as previous step, but filter out result that contain the word `demo3` or `demo4`
-
 ```ruby
 # ./bin/code_lister find -b spec/fixtures/ -e rb java -n xxx -x demo3 demo4
 spec/fixtures/demo1.xxx.rb
 spec/fixtures/demo2.xxx.rb
 ```
-
 #### Using as ruby library
 
 This is probably the proper way to utilize the library as the CLI only serve to
@@ -110,11 +109,9 @@ file_list = CodeLister.files base_dir: "spec/fixtures",
 puts file_list
 
 # To filter out the result you may do so with the `CodeLister.filter` method
-
 new_list = CodeLister.filter(file_list, inc_words: %w(some list of word),
                                         exc_words: %w(other text to excluded),
                                         ignore_case: false)
-
 ```
 
 ### Development/Testing
@@ -141,33 +138,37 @@ puts list1
 list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(demo test))
 ```
 
-### Disclaimers
-
-This is still work in progress. I may make several adjustment to the API and thus I might break
-the compatibility as the result. Please let me know if you find any problem. Pull request is
-always welcome.
-
 ### Changelogs
 
+#### 0.0.8
+
+- Update dependencies
+
 #### 0.0.7
+
 - Make use of the 'agile_utils' gem for better code re-use
 
 #### 0.0.6
+
 - Add `--non-exts` option that make it possible to include files without extension.
 
 #### 0.0.5
+
 - Refactoring the CLI options to make it easy for re-use in other library.
 
 #### 0.0.4
+
 - Add `ignore-case` option
 - Use `-n' for `--include-words` and use `-i` for `--ignore-case`.
 - Make the `--recursive` the default option
 - Make the `--ignore-case` the default option
 
 #### 0.0.3
+
 - Update README.md to include better sample usage, and misc cleanup.
 
 #### 0.0.2
+
 - initial release
 
 ## Contributing

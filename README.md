@@ -140,6 +140,10 @@ list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(de
 
 ### Changelogs
 
+#### 0.0.9
+
+- Remove duplicate code in `drop_any!` and `take_any!`
+
 #### 0.0.8
 
 - Update dependencies

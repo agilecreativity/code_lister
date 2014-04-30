@@ -56,14 +56,8 @@ module CodeLister
       ignore_case = args[:ignore_case]
 
       unless words.empty?
-        file_list.select! do |f|
-          words.any? do |w|
-            if ignore_case
-              /#{w}/i =~ File.basename(f)
-            else
-              /#{w}/  =~ File.basename(f)
-            end
-          end
+        file_list.select! do |file|
+          matched_any?(words, file, ignore_case)
         end
       end
 
@@ -73,20 +67,25 @@ module CodeLister
     def drop_any!(file_list, args = {})
       words = args[:exc_words]
       ignore_case = args[:ignore_case]
-
       unless words.empty?
-        file_list.delete_if do |f|
-          words.any? do |w|
-            if ignore_case
-              /#{w}/i =~ File.basename(f)
-            else
-              /#{w}/  =~ File.basename(f)
-            end
-          end
+        file_list.delete_if do |file|
+          matched_any?(words, file, ignore_case)
         end
       end
-
       file_list
     end
+
+    def matched_any?(words, file, ignore_case)
+      words.any? { |word| matched?(ignore_case, word, file) }
+    end
+
+    def matched?(ignore_case, word, file)
+      if ignore_case
+        /#{word}/i =~ File.basename(file)
+      else
+        /#{word}/  =~ File.basename(file)
+      end
+    end
+
   end
 end

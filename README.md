@@ -66,30 +66,32 @@ Example Usage:
 #
 # ./bin/code_lister find -b spec/fixtures/ -e rb java
 
-spec/fixtures/demo1.xxx.rb
-spec/fixtures/demo1.yyy.rb
-spec/fixtures/demo2.xxx.rb
-spec/fixtures/demo2.yyy.rb
-spec/fixtures/java/demo3.xxx.java
-spec/fixtures/java/demo3.yyy.java
-spec/fixtures/java/demo4.xxx.java
-spec/fixtures/java/demo4.yyy.java
+```
+./demo1.xxx.rb
+./demo1.yyy.rb
+./demo2.xxx.rb
+./demo2.yyy.rb
+./java/demo3.xxx.java
+./java/demo3.yyy.java
+./java/demo4.xxx.java
+./java/demo4.yyy.java
 ```
 
 - Find all java java and ruby files but include only the files that contain the word `xxx`
 
 ```ruby
 # ./bin/code_lister find -b spec/fixtures/ -e rb java -n xxx
-spec/fixtures/demo1.xxx.rb
-spec/fixtures/demo2.xxx.rb
-spec/fixtures/java/demo3.xxx.java
-spec/fixtures/java/demo4.xxx.java
+
+./demo1.xxx.rb
+./demo2.xxx.rb
+./java/demo3.xxx.java
+./java/demo4.xxx.java
 ```
 - Same as previous step, but filter out result that contain the word `demo3` or `demo4`
 ```ruby
 # ./bin/code_lister find -b spec/fixtures/ -e rb java -n xxx -x demo3 demo4
-spec/fixtures/demo1.xxx.rb
-spec/fixtures/demo2.xxx.rb
+./demo1.xxx.rb
+./demo2.xxx.rb
 ```
 #### Using as ruby library
 
@@ -137,43 +139,6 @@ puts list1
 # To filter out the result list
 list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(demo test))
 ```
-
-### Changelogs
-
-#### 0.0.9
-
-- Remove duplicate code in `drop_any!` and `take_any!`
-
-#### 0.0.8
-
-- Update dependencies
-
-#### 0.0.7
-
-- Make use of the 'agile_utils' gem for better code re-use
-
-#### 0.0.6
-
-- Add `--non-exts` option that make it possible to include files without extension.
-
-#### 0.0.5
-
-- Refactoring the CLI options to make it easy for re-use in other library.
-
-#### 0.0.4
-
-- Add `ignore-case` option
-- Use `-n' for `--include-words` and use `-i` for `--ignore-case`.
-- Make the `--recursive` the default option
-- Make the `--ignore-case` the default option
-
-#### 0.0.3
-
-- Update README.md to include better sample usage, and misc cleanup.
-
-#### 0.0.2
-
-- initial release
 
 ## Contributing
 

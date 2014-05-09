@@ -10,18 +10,22 @@ module CodeLister
         non_exts: []
       }.merge(args)
 
-      base_dir = opts[:base_dir]
-      raise CustomError, "The directory #{base_dir} is not valid or or not readable!" unless File.exists?(base_dir)
+      # always expand the path
+      base_dir = File.expand_path(opts[:base_dir])
+      # base_dir = opts[:base_dir]
+      fail CustomError, "The directory #{base_dir} is not valid or or not readable!" unless File.exist?(base_dir)
 
       wildcard = opts[:recursive] ? '**' : ''
       exts     = opts[:exts]
       non_exts = opts[:non_exts]
 
-      file_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(",")}}"))
-      file_with_no_extension = no_extension_files(base_dir, wildcard, non_exts)
-
+      files_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(',')}}"))
+      files_without_extension = no_extension_files(base_dir, wildcard, non_exts)
+      # remove the 'base_dir' with .
+      files_with_extension.each { |f| f.gsub!(base_dir, '.') }
+      files_without_extension.each { |f| f.gsub!(base_dir, '.') }
       # combine the result
-      (file_with_extension + file_with_no_extension).sort
+      (files_with_extension + files_without_extension).sort
     end
 
     # Filter out the list based on given list of words
@@ -86,6 +90,5 @@ module CodeLister
         /#{word}/  =~ File.basename(file)
       end
     end
-
   end
 end

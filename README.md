@@ -10,6 +10,8 @@ It provides the functionality similar to subset of `find | grep` command in Linu
 Initially this was part of my internal project. I extracted this out as a gem so
 that I can re-use it in other project.
 
+Note: starting from version `0.1.0` this gem will follow the [Semantic Versioning] convention.
+
 ### Installation
 
 Add this line to your application's Gemfile:
@@ -93,6 +95,7 @@ Example Usage:
 ./demo1.xxx.rb
 ./demo2.xxx.rb
 ```
+
 #### Using as ruby library
 
 This is probably the proper way to utilize the library as the CLI only serve to
@@ -147,3 +150,5 @@ list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(de
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[Semantic Versioning]: http://semver.org

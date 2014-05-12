@@ -1,8 +1,13 @@
 ### Changelogs
 
+#### 0.1.0
+
+- First release based on [Semantic Versioning][]
+- Update the gem dependencies to latest version
+
 #### 0.0.9
 
-- Consistencely replace the `base_dir` with `.` in the result:w
+- Consistencely replace the `base_dir` with `.` in the result
 - Move changelogs section from README.md to CHANGELOGS.md
 - Minor code refactoring
 - Fix style with rubocop
@@ -38,3 +43,5 @@
 #### 0.0.2
 
 - initial release
+
+[Semantic Versioning]: http://semver.org

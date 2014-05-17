@@ -33,14 +33,14 @@ Or install it yourself as:
 List all pdf and epub files in the `/opts/downloads/` directory recursively
 
 ```sh
-$code_lister find --base-dir /opt/downloads/ --exts pdf epub --recursive
+$code_lister --base-dir /opt/downloads/ --exts pdf epub --recursive
 ```
 
 Usage/Synopsis:
 
 ```
 Usage:
-  code_lister find [OPTIONS]
+  code_lister [OPTIONS]
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
@@ -63,10 +63,11 @@ Example Usage:
 - Find all java and ruby files in a given directory
 
 ```ruby
-
 # find all files that ends with '*.java' or '*.rb' in a given directory
-#
-# ./bin/code_lister find -b spec/fixtures/ -e rb java
+code_lister -b spec/fixtures/ -e rb java
+```
+
+Output:
 
 ```
 ./demo1.xxx.rb
@@ -81,17 +82,27 @@ Example Usage:
 
 - Find all java java and ruby files but include only the files that contain the word `xxx`
 
-```ruby
-# ./bin/code_lister find -b spec/fixtures/ -e rb java -n xxx
+```sh
+$code_lister -b spec/fixtures/ -e rb java -n xxx
+```
 
+Output:
+
+```
 ./demo1.xxx.rb
 ./demo2.xxx.rb
 ./java/demo3.xxx.java
 ./java/demo4.xxx.java
 ```
+
 - Same as previous step, but filter out result that contain the word `demo3` or `demo4`
+
 ```ruby
-# ./bin/code_lister find -b spec/fixtures/ -e rb java -n xxx -x demo3 demo4
+$code_lister -b spec/fixtures/ -e rb java -n xxx -x demo3 demo4
+```
+Output:
+
+```
 ./demo1.xxx.rb
 ./demo2.xxx.rb
 ```
@@ -99,7 +110,7 @@ Example Usage:
 #### Using as ruby library
 
 This is probably the proper way to utilize the library as the CLI only serve to
-demonstrate purpose only.
+show the result in the console.
 
 Example of how you might use the library in your own project.
 
@@ -129,6 +140,7 @@ rake -T
 
 # Play around with it using Pry
 rake pry
+```
 
 From inside `Pry`
 

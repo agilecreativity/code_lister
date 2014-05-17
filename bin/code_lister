@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
-require_relative '../lib/code_lister'
+require_relative "../lib/code_lister"
 include CodeLister
-CodeLister::CLI.start(ARGV)
+if ARGV.empty?
+  CodeLister::CLI.start(%w[usage])
+else
+  CodeLister::CLI.start(%w[find].concat(ARGV))
+end

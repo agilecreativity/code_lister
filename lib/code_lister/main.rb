@@ -16,16 +16,16 @@ module CodeLister
         files
       end
 
-      private
+    private
 
       def default_options
-        { base_dir: Dir.pwd,
-          recursive: true,
-          ignore_case: true,
-          inc_words: [],
-          exc_words: [],
-          exts: [],
-          non_exts: [] }
+        {base_dir: Dir.pwd,
+         recursive: true,
+         ignore_case: true,
+         inc_words: [],
+         exc_words: [],
+         exts: [],
+         non_exts: []}
       end
     end
   end

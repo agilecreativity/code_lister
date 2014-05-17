@@ -15,15 +15,15 @@ module CodeLister
       # base_dir = opts[:base_dir]
       fail CustomError, "The directory #{base_dir} is not valid or or not readable!" unless File.exist?(base_dir)
 
-      wildcard = opts[:recursive] ? '**' : ''
+      wildcard = opts[:recursive] ? "**" : ""
       exts     = opts[:exts]
       non_exts = opts[:non_exts]
 
-      files_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(',')}}"))
+      files_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(",")}}"))
       files_without_extension = no_extension_files(base_dir, wildcard, non_exts)
       # remove the 'base_dir' with .
-      files_with_extension.each { |f| f.gsub!(base_dir, '.') }
-      files_without_extension.each { |f| f.gsub!(base_dir, '.') }
+      files_with_extension.each { |f| f.gsub!(base_dir, ".") }
+      files_without_extension.each { |f| f.gsub!(base_dir, ".") }
       # combine the result
       (files_with_extension + files_without_extension).sort
     end
@@ -42,7 +42,7 @@ module CodeLister
       file_list
     end
 
-    private
+  private
 
     # List files that do not have the extension
     #
@@ -50,7 +50,7 @@ module CodeLister
     def no_extension_files(base_dir, wildcard, non_exts = [])
       list = []
       unless non_exts.empty?
-        list = Dir.glob(File.join(base_dir, wildcard, "{#{non_exts.join(',')}}"))
+        list = Dir.glob(File.join(base_dir, wildcard, "{#{non_exts.join(",")}}"))
       end
       list
     end

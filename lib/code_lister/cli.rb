@@ -1,8 +1,9 @@
-require 'thor'
-require 'agile_utils'
+require "thor"
+require "agile_utils"
 module CodeLister
   class CLI < Thor
-    desc 'find', 'List files by extensions, patterns, and simple criteria'
+    # rubocop:disable AmbiguousOperator, LineLength
+    desc "find", "List files by extensions, patterns, and simple criteria"
     method_option *AgileUtils::Options::BASE_DIR
     method_option *AgileUtils::Options::EXTS
     method_option *AgileUtils::Options::NON_EXTS
@@ -22,11 +23,11 @@ module CodeLister
 
     # Note: we don't use help so that we can run :r !./bin/code_lister help find
     # to see the update help if we have to without commenting out
-    desc 'usage', 'Display help screen'
+    desc "usage", "Display help screen"
     def usage
       puts <<-EOS
 Usage:
-  code_lister find [OPTIONS]
+  code_lister
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
@@ -44,6 +45,7 @@ Options:
 List files by extensions, patterns, and simple criteria
       EOS
     end
+    # rubocop:enable AmbiguousOperator, LineLength
 
     default_task :usage
   end

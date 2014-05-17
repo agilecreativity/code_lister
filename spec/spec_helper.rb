@@ -13,8 +13,8 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  config.order = "random"
 end
 
-require_relative '../lib/code_lister'
+require_relative "../lib/code_lister"
 include CodeLister

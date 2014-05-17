@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "awesome_print", "~> 1.2"
   spec.add_development_dependency "pry", "~> 0.9"
   spec.add_development_dependency "fuubar", "~> 1.3"
-  spec.add_development_dependency "rubocop", "~> 0.20"
+  spec.add_development_dependency "rubocop", "~> 0.23"
 end

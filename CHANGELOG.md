@@ -1,5 +1,14 @@
 ### Changelogs
 
+#### 0.1.3
+
+- Add new internal api to get the input files from output of the shell command for advanced usage [New]
+
+#### 0.1.2
+
+- Improve documentation
+- Update style for rubocop and update to rubocop 0.23.x
+
 #### 0.1.1
 
 - Simplify the CLI interface

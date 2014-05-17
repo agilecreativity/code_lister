@@ -40,19 +40,19 @@ Usage/Synopsis:
 
 ```
 Usage:
-  code_lister [OPTIONS]
+  code_lister
 
 Options:
   -b, [--base-dir=BASE_DIR]                # Base directory
                                            # Default: . (current directory)
   -e, [--exts=one two three]               # List of extensions to search for
-  -f, [--non-exts=one two three]           # List of extensions to search for
-  -n, [--inc-words=one two three]          # List of words to be included in the result
-  -x, [--exc-words=one two three]          # List of words to be excluded from the result
-  -i, [--ignore-case], [--no-ignore-case]  # Match case insensitively
-                                           # Default: true
+  -f, [--non-exts=one two three]           # List of files without extension to search for
+  -n, [--inc-words=one two three]          # List of words in the filename to be included with the result if any
+  -x, [--exc-words=one two three]          # List of words in the filename to be excluded from the result if any
+  -i, [--ignore-case], [--no-ignore-case]  # Ignore the case in the input filename
+                                           # Default: --ignore-case
   -r, [--recursive], [--no-recursive]      # Search for files recursively
-                                           # Default: true
+                                           # Default: --recursive
   -v, [--version], [--no-version]          # Display version information
 
 List files by extensions, patterns, and simple criteria

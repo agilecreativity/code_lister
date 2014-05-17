@@ -1,5 +1,10 @@
 ### Changelogs
 
+#### 0.1.2
+
+- Improve documentation
+- Update style for rubocop and update to rubocop 0.23.x
+
 #### 0.1.1
 
 - Simplify the CLI interface

@@ -1,18 +1,24 @@
 module CodeLister
   CustomError = Class.new(StandardError)
   class << self
-    # List files base on some extension
+    # List files base on multiple simple criteria
+    #
+    # @param [Hash<Symbol>,<Object>] args argument hash
+    # @option args [String]         :base_dir the starting directory
+    # @option args [Boolean]        :recursive flag to indicate if the search will be done recursively
+    # @option args [Array<String>]  :exts list of file extension to search for (without the dot)
+    # @option args [Array<String>]  :non_exts list of file without any extension to search for
+    # @return [Array<String>] the list of file based on the matching criteria
     def files(args = {})
       opts = {
-        base_dir: Dir.pwd,
+        base_dir:  Dir.pwd,
         recursive: false,
-        exts: [],
-        non_exts: []
+        exts:      [],
+        non_exts:  []
       }.merge(args)
 
       # always expand the path
       base_dir = File.expand_path(opts[:base_dir])
-      # base_dir = opts[:base_dir]
       fail CustomError, "The directory #{base_dir} is not valid or or not readable!" unless File.exist?(base_dir)
 
       wildcard = opts[:recursive] ? "**" : ""
@@ -28,7 +34,14 @@ module CodeLister
       (files_with_extension + files_without_extension).sort
     end
 
-    # Filter out the list based on given list of words
+    # Filter out the list based on simple criteria
+    #
+    # @param [Array<String>] file_list the input file list
+    # @param [Hash<Symbol, Object>] args the option hash
+    # @option args [Array<String>]  :inc_words list of words that must be match to be included in the result
+    # @option args [Array<String>]  :exc_words list of words that will be excluded fromt the result
+    # @option args [Boolean]        :ignore_case flag to indicate how the string comparision should be performed
+    # @return [Array<String>] the original list with the result filtered
     def filter(file_list, args = {})
       opts = {
         inc_words: [],

@@ -1,5 +1,10 @@
 ### Changelogs
 
+#### 0.1.4
+
+- Add more tests for 'files_from_command'
+- Fix the path to 'Guardfile' to make it pick up the right test
+
 #### 0.1.3
 
 - Add new internal api to get the input files from output of the shell command for advanced usage [New]

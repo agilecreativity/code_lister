@@ -2,28 +2,36 @@ module CodeLister
   CustomError = Class.new(StandardError)
   class << self
     # Execute the command in the shell and extract the output to be used
-    # e.g. `git diff --name-only HEAD~1` is getting the list of files that have been
-    # updated in the last commit
+    #
+    # Example
+    #
+    # Use the file list from the 'find | grep' command
+    #
+    # 'find ~/Desktop/pdfkit -type f -iname "*.rb" | grep -v spec'
     #
     # @param [String] command the input command to be executed in the shell
     # @param [String] base_dir the starting directory
     # @return [Array<String>] file list or empty list if the shell command is not valid
-    def files_from_command(command, base_dir)
+    def files_from_command(command, base_dir = ".")
       files = AgileUtils::Helper.shell(command.split(" ")).split(/\n/)
       # Adapt the result and make sure that it starts with "./"
       # like the result from 'CodeLister.files()' method
       files.map! do |file|
-        if file =~ /^\.\//
-          # skip if the file start with './' string
-          file
-        else
-          # add './' to the one that does not already have one
-          "./#{file}"
+        if base_dir
+          if file =~ /^\./
+            File.expand_path(file).gsub(File.expand_path(base_dir), ".")
+          else
+            File.expand_path(file).gsub(File.expand_path(base_dir), ".")
+          end
         end
       end
-      # Note: this make sure that it works with deleted file when use
-      # this with something like 'git diff --name-only HEAD~2'
-      files.delete_if { |file| !File.exist?(file.gsub(/^\./, base_dir)) }
+      files.delete_if do |file|
+        !File.exist?([
+          File.expand_path(base_dir),
+          file.gsub(/^\./, '')
+        ].join(""))
+      end
+      files
     rescue RuntimeError => e
       # just return the empty list, if the user specified invalid command
       return []

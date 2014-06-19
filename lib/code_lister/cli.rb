@@ -21,8 +21,6 @@ module CodeLister
       CodeLister::Main.run(opts)
     end
 
-    # Note: we don't use help so that we can run :r !./bin/code_lister help find
-    # to see the update help if we have to without commenting out
     desc "usage", "Display help screen"
     def usage
       puts <<-EOS
@@ -49,9 +47,4 @@ List files by extensions, patterns, and simple criteria
 
     default_task :usage
   end
-end
-
-if __FILE__ == $PROGRAM_NAME
-  require_relative "../code_lister"
-  CodeLister::CLI.start(ARGV)
 end

@@ -1,4 +1,4 @@
-require_relative "../spec_helper"
+require_relative "../../spec_helper"
 describe CodeLister do
   context "#files" do
     it "works with non_exts option" do

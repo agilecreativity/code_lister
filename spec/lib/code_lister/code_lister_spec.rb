@@ -1,4 +1,4 @@
-require_relative "../spec_helper"
+require_relative "../../spec_helper"
 describe CodeLister do
   let(:file_list) do
     CodeLister.files(base_dir: "spec/fixtures", exts: %w[xxx.rb], recursive: true)
@@ -30,7 +30,7 @@ describe CodeLister do
           ]
       end
       it "returns result list when base_dir is a not a current directory" do
-        base_dir = File.expand_path(File.dirname(__FILE__) + "/../fixtures")
+        base_dir = File.expand_path(File.dirname(__FILE__) + "/../../fixtures")
         expect(CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.rb'", base_dir).sort)
           .to eq [
             "./demo1.xxx.rb",

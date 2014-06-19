@@ -28,7 +28,7 @@ module CodeLister
       files.delete_if do |file|
         !File.exist?([
           File.expand_path(base_dir),
-          file.gsub(/^\./, '')
+          file.gsub(/^\./, "")
         ].join(""))
       end
       files
@@ -48,7 +48,7 @@ module CodeLister
     def files(args = {})
       opts = {
         base_dir:  Dir.pwd,
-        recursive: false,
+        recursive: true,
         exts:      [],
         non_exts:  []
       }.merge(args)

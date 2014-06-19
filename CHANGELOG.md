@@ -1,5 +1,11 @@
 ### Changelogs
 
+#### 0.1.5
+
+- Update the rspec folder structure
+- Make CodeLister::files recursive by default
+- Minor code cleanup
+
 #### 0.1.4
 
 - Add more tests for 'files_from_command'

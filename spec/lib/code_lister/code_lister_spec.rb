@@ -1,37 +1,15 @@
 require_relative "../../spec_helper"
 describe CodeLister do
-  let(:file_list) do
-    CodeLister.files(base_dir: "spec/fixtures", exts: %w[xxx.rb], recursive: true)
-  end
-
   context "#files_from_command" do
     it "returns empty result with invalid parameter" do
-      expect(CodeLister.files_from_command("invalid-command", nil)).to eq []
+      expect(CodeLister.files_from_command("invalid-command")).to eq []
     end
-
     describe "use with `find` command" do
-      it "returns non-empty list when base_dir is not specified (implicitly set)" do
-        expect(CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.rb'").sort)
-          .to eq [
-            "./spec/fixtures/demo1.xxx.rb",
-            "./spec/fixtures/demo1.yyy.rb",
-            "./spec/fixtures/demo2.xxx.rb",
-            "./spec/fixtures/demo2.yyy.rb"
-          ]
-      end
-      it "returns non-empty list when base_dir is current directory" do
-        base_dir = "."
-        expect(CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.rb'", base_dir).sort)
-          .to eq [
-            "./spec/fixtures/demo1.xxx.rb",
-            "./spec/fixtures/demo1.yyy.rb",
-            "./spec/fixtures/demo2.xxx.rb",
-            "./spec/fixtures/demo2.yyy.rb"
-          ]
-      end
       it "returns result list when base_dir is a not a current directory" do
         base_dir = File.expand_path(File.dirname(__FILE__) + "/../../fixtures")
-        expect(CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.rb'", base_dir).sort)
+        files = CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.rb'")
+        files = CodeLister.remove_prefix(files, base_dir).sort
+        expect(files.sort)
           .to eq [
             "./demo1.xxx.rb",
             "./demo1.yyy.rb",
@@ -41,23 +19,11 @@ describe CodeLister do
       end
       it "returns empty list when no match found" do
         base_dir = File.expand_path(File.dirname(__FILE__) + "/../fixtures")
-        expect(CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.XYZ'", base_dir).sort)
-          .to be_empty
+        files = CodeLister.files_from_command("find ./spec/fixtures -type f -iname '*.XYZ'")
+        files = CodeLister.remove_prefix(files, base_dir).sort
+        expect(files).to be_empty
       end
     end
-
-    # TODO: Setup the fixtures to make this test possible (e.g. use `fakefs`?)
-    # describe "use with `git diff --name-only` command" do
-    #   it "returns result when git returns valid result" do
-    #     # Note: base_dir must be "." only for `git diff --name-only` to work
-    #     base_dir = "."
-    #     expect(CodeLister.files_from_command("git diff --name-only HEAD~4", base_dir).sort)
-    #       .to eq [
-    #         "./lib/code_lister/code_lister.rb",
-    #         "./spec/code_lister/code_lister_spec.rb"
-    #       ]
-    #   end
-    # end
   end
 
   context "#files" do
@@ -76,6 +42,9 @@ describe CodeLister do
   end
 
   context "#filter" do
+    let(:file_list) do
+      CodeLister.files(base_dir: "spec/fixtures", exts: %w[xxx.rb], recursive: true)
+    end
     it "works with empty filter inputs" do
       expect(CodeLister.filter(file_list, inc_words: [], exc_words: [])).to eq file_list
     end

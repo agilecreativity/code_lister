@@ -1,3 +1,4 @@
+require 'agile_utils'
 module CodeLister
   CustomError = Class.new(StandardError)
   class << self
@@ -10,30 +11,17 @@ module CodeLister
     # 'find ~/Desktop/pdfkit -type f -iname "*.rb" | grep -v spec'
     #
     # @param [String] command the input command to be executed in the shell
-    # @param [String] base_dir the starting directory
     # @return [Array<String>] file list or empty list if the shell command is not valid
-    def files_from_command(command, base_dir = ".")
+    def files_from_command(command)
       files = AgileUtils::Helper.shell(command.split(" ")).split(/\n/)
-      # Adapt the result and make sure that it starts with "./"
-      # like the result from 'CodeLister.files()' method
-      files.map! do |file|
-        if base_dir
-          if file =~ /^\./
-            File.expand_path(file).gsub(File.expand_path(base_dir), ".")
-          else
-            File.expand_path(file).gsub(File.expand_path(base_dir), ".")
-          end
-        end
-      end
+      files.map! { |file| File.expand_path(file) }
+      # Some command result in the deleted files (e.g. git diff --name-only HEAD~n)
       files.delete_if do |file|
-        !File.exist?([
-          File.expand_path(base_dir),
-          file.gsub(/^\./, "")
-        ].join(""))
+        !File.exist?(file)
       end
       files
     rescue RuntimeError => e
-      # just return the empty list, if the user specified invalid command
+      # return empty list for invalid command
       return []
     end
 
@@ -63,11 +51,9 @@ module CodeLister
 
       files_with_extension    = Dir.glob(File.join(base_dir, wildcard, "*.{#{exts.join(",")}}"))
       files_without_extension = no_extension_files(base_dir, wildcard, non_exts)
-      # remove the 'base_dir' with .
-      files_with_extension.each { |f| f.gsub!(base_dir, ".") }
-      files_without_extension.each { |f| f.gsub!(base_dir, ".") }
-      # combine the result
-      (files_with_extension + files_without_extension).sort
+      # Replace prefix directory with just "."
+      files = (files_with_extension + files_without_extension)
+      files.map! { |file| file.gsub(base_dir, ".") }.sort
     end
 
     # Filter out the list based on simple criteria
@@ -84,11 +70,20 @@ module CodeLister
         exc_words: [],
         ignore_case: true
       }.merge(args)
-
       take_any!(file_list, opts)
       drop_any!(file_list, opts)
-
       file_list
+    end
+
+    # Remove each prefix string from a given list of string
+    #
+    # @param [Array<String>] files list of file path/name
+    # @param [String] base_dir
+    # @return [Array<String>] list of files with the prefix replaced by "."
+    def remove_prefix(files, prefix)
+      prefix = File.expand_path(prefix) if prefix
+      files.map! { |file| prefix ? file.gsub(prefix, ".") : file }
+      files
     end
 
   private
@@ -107,13 +102,11 @@ module CodeLister
     def take_any!(file_list, args = {})
       words = args[:inc_words]
       ignore_case = args[:ignore_case]
-
       unless words.empty?
         file_list.select! do |file|
           matched_any?(words, file, ignore_case)
         end
       end
-
       file_list
     end
 

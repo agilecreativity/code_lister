@@ -1,5 +1,11 @@
 ### Changelogs
 
+#### 0.1.6
+
+- Add internal api for getting input files from shell command
+- Update `agile_utils` to 0.1.14
+- Minor code cleanup
+
 #### 0.1.5
 
 - Update the rspec folder structure

@@ -25,6 +25,20 @@ module CodeLister
       return []
     end
 
+    # Extract list of files from a given shell command
+    #
+    # @param [String] command the input command e.g. 'find . -type f -iname .."
+    # @param [String] prefix the prefix directory that will be replaced by '.' (dot string)
+    # @return [Array<String>] empty list or file list of the form ["./Gemfile", "./lib/codelister.rb", ..]
+    def files_from_shell(command, prefix)
+      prefix = File.expand_path(prefix) if prefix
+      unless prefix && File.directory?(prefix)
+        raise "'#{prefix}' is not valid prefix directory!"
+      end
+      files = files_from_command(command)
+      files.map! { |file| file.gsub(File.expand_path(prefix), ".") }
+    end
+
     # List files base on multiple simple criteria
     #
     # @param [Hash<Symbol>,<Object>] args argument hash

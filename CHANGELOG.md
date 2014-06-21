@@ -1,5 +1,9 @@
 ### Changelogs
 
+#### 0.1.7
+
+- Add new api `files_from_shell` that replaces `prefix` with `.` string
+
 #### 0.1.6
 
 - Add internal api for getting input files from shell command

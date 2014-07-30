@@ -1,5 +1,12 @@
 ### Changelogs
 
+#### 0.2.0
+
+- Update to agile_utils that require refinement suppport (2.0.x+)
+- Only support ruby 2.0.x+ to avoid the mokeypatch core ruby library
+- Minor update to rubocop style
+- Update Guardfile to make it run correctly
+
 #### 0.1.7
 
 - Add new api `files_from_shell` that replaces `prefix` with `.` string

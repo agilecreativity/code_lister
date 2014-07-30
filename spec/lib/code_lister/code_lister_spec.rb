@@ -42,38 +42,33 @@ describe CodeLister do
   end
 
   context "#filter" do
-    let(:file_list) do
-      CodeLister.files(base_dir: "spec/fixtures", exts: %w[xxx.rb], recursive: true)
+    before :each do
+      @file_list = CodeLister.files(base_dir: "spec/fixtures", exts: %w[xxx.rb], recursive: true)
     end
+
     it "works with empty filter inputs" do
-      expect(CodeLister.filter(file_list, inc_words: [], exc_words: [])).to eq file_list
+      expect(CodeLister.filter(@file_list, inc_words: [], exc_words: [])).to eq @file_list
     end
 
     it "works with unique match" do
-      expect(CodeLister.filter(file_list, inc_words: %w[demo1])).to eq ["./demo1.xxx.rb"]
+      expect(CodeLister.filter(@file_list, inc_words: %w[demo1])).to eq ["./demo1.xxx.rb"]
     end
 
     it "works with multiples matches" do
-      expect(CodeLister.filter(file_list, inc_words: %w[demo])).to eq ["./demo1.xxx.rb",
-                                                                       "./demo2.xxx.rb"]
-      expect(CodeLister.filter(file_list, inc_words: %w[xxx])).to eq ["./demo1.xxx.rb",
-                                                                      "./demo2.xxx.rb"]
+      expect(CodeLister.filter(@file_list, inc_words: %w[demo])).to eq ["./demo1.xxx.rb",
+                                                                        "./demo2.xxx.rb"]
     end
 
     it "filters out the words that we don't want" do
-      expect(CodeLister.filter(file_list, exc_words: %w[demo1])).to eq ["./demo2.xxx.rb"]
-      expect(CodeLister.filter(file_list, exc_words: %w[xxx])).to eq []
+      expect(CodeLister.filter(@file_list, exc_words: %w[demo1])).to eq ["./demo2.xxx.rb"]
     end
 
-    context "with ignore_case" do
-      it "ignores case by default" do
-        expect(CodeLister.filter(file_list, exc_words: %w[DeMo1])).to eq CodeLister.filter(file_list, exc_words: %w[demo1])
-        expect(CodeLister.filter(file_list, exc_words: %w[DeMo1])).to eq ["./demo2.xxx.rb"]
-      end
-      it "does not ignore case if specified" do
-        expect(CodeLister.filter(file_list, exc_words: %w[DeMo1], ignore_case: false)).to eq ["./demo1.xxx.rb",
-                                                                                              "./demo2.xxx.rb"]
-      end
+    it "ignores case by default" do
+      expect(CodeLister.filter(@file_list, inc_words: %w[DeMo1])).to eq ["./demo1.xxx.rb"]
+    end
+
+    it "does not ignore case if specified" do
+      expect(CodeLister.filter(@file_list, inc_words: %w[DeMo1], ignore_case: false)).to be_empty
     end
   end
 end

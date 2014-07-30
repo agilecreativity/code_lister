@@ -1,6 +1,7 @@
-require 'agile_utils'
+require "agile_utils"
 module CodeLister
   CustomError = Class.new(StandardError)
+
   class << self
     # Execute the command in the shell and extract the output to be used
     #
@@ -20,7 +21,7 @@ module CodeLister
         !File.exist?(file)
       end
       files
-    rescue RuntimeError => e
+    rescue RuntimeError
       # return empty list for invalid command
       return []
     end
@@ -33,7 +34,7 @@ module CodeLister
     def files_from_shell(command, prefix)
       prefix = File.expand_path(prefix) if prefix
       unless prefix && File.directory?(prefix)
-        raise "'#{prefix}' is not valid prefix directory!"
+        fail "'#{prefix}' is not valid prefix directory!"
       end
       files = files_from_command(command)
       files.map! { |file| file.gsub(File.expand_path(prefix), ".") }
@@ -100,12 +101,10 @@ module CodeLister
       files
     end
 
-  private
-
     # List files that do not have the extension
     #
     # @return list of files that does not have any extension
-    def no_extension_files(base_dir, wildcard, non_exts = [])
+    private def no_extension_files(base_dir, wildcard, non_exts = [])
       list = []
       unless non_exts.empty?
         list = Dir.glob(File.join(base_dir, wildcard, "{#{non_exts.join(",")}}"))
@@ -113,7 +112,7 @@ module CodeLister
       list
     end
 
-    def take_any!(file_list, args = {})
+    private def take_any!(file_list, args = {})
       words = args[:inc_words]
       ignore_case = args[:ignore_case]
       unless words.empty?
@@ -124,7 +123,7 @@ module CodeLister
       file_list
     end
 
-    def drop_any!(file_list, args = {})
+    private def drop_any!(file_list, args = {})
       words = args[:exc_words]
       ignore_case = args[:ignore_case]
       unless words.empty?
@@ -135,11 +134,11 @@ module CodeLister
       file_list
     end
 
-    def matched_any?(words, file, ignore_case)
+    private def matched_any?(words, file, ignore_case)
       words.any? { |word| matched?(ignore_case, word, file) }
     end
 
-    def matched?(ignore_case, word, file)
+    private def matched?(ignore_case, word, file)
       if ignore_case
         /#{word}/i =~ File.basename(file)
       else

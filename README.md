@@ -12,6 +12,11 @@ that I can re-use it in other project.
 
 Note: starting from version `0.1.0` this gem will follow the [Semantic Versioning] convention.
 
+### NOTES
+
+- Starting from version 0.2.0 only ruby 2.0.x are supported
+- Use version 0.1.x if you need to use with ruby 1.9.x
+
 ### Installation
 
 Add this line to your application's Gemfile:
@@ -157,7 +162,7 @@ list2 = CodeLister.filter(list1, inc_words: %w(final complete), exc_words: %w(de
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/code_lister/fork )
+1. Fork it (http://github.com/agilecreativity/code_lister/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

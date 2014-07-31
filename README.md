@@ -14,8 +14,8 @@ Note: starting from version `0.1.0` this gem will follow the [Semantic Versionin
 
 ### NOTES
 
-- Starting from version 0.2.0 only ruby 2.0.x are supported
-- Use version 0.1.x if you need to use with ruby 1.9.x
+- Starting from version 0.2.0 only ruby 2.1.0+ are supported (use refinement instead of monkeypatching)
+- Use version 0.1.x if you need to use with ruby 1.9.3
 
 ### Installation
 

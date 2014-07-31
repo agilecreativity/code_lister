@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.description = "List/filter files similar to 'find then grep' command in Linux/Unix based system"
   spec.homepage    = "https://github.com/agilecreativity/code_lister"
   spec.license     = "MIT"
+  spec.required_ruby_version = ">= 2.1.0"
   spec.files       = Dir.glob("{bin,lib}/**/*") + %w[Gemfile
                                                      Rakefile
                                                      code_lister.gemspec

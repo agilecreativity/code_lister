@@ -101,10 +101,12 @@ module CodeLister
       files
     end
 
+    private
+
     # List files that do not have the extension
     #
     # @return list of files that does not have any extension
-    private def no_extension_files(base_dir, wildcard, non_exts = [])
+    def no_extension_files(base_dir, wildcard, non_exts = [])
       list = []
       unless non_exts.empty?
         list = Dir.glob(File.join(base_dir, wildcard, "{#{non_exts.join(",")}}"))
@@ -112,7 +114,7 @@ module CodeLister
       list
     end
 
-    private def take_any!(file_list, args = {})
+    def take_any!(file_list, args = {})
       words = args[:inc_words]
       ignore_case = args[:ignore_case]
       unless words.empty?
@@ -123,7 +125,7 @@ module CodeLister
       file_list
     end
 
-    private def drop_any!(file_list, args = {})
+    def drop_any!(file_list, args = {})
       words = args[:exc_words]
       ignore_case = args[:ignore_case]
       unless words.empty?
@@ -134,11 +136,11 @@ module CodeLister
       file_list
     end
 
-    private def matched_any?(words, file, ignore_case)
+    def matched_any?(words, file, ignore_case)
       words.any? { |word| matched?(ignore_case, word, file) }
     end
 
-    private def matched?(ignore_case, word, file)
+    def matched?(ignore_case, word, file)
       if ignore_case
         /#{word}/i =~ File.basename(file)
       else

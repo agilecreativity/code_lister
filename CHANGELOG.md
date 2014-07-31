@@ -1,5 +1,9 @@
 ### Changelogs
 
+#### 0.2.1
+
+- Make ruby version 2.1.0+ mandatory
+
 #### 0.2.0
 
 - Update to agile_utils that require refinement suppport (2.0.x+)

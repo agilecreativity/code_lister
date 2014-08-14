@@ -12,7 +12,9 @@ module CodeLister
         files
       end
 
-      private def default_options
+      private
+
+      def default_options
         {
           base_dir:    Dir.pwd,
           recursive:   true,

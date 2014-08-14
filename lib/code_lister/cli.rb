@@ -2,8 +2,6 @@ require "thor"
 require "agile_utils"
 module CodeLister
   class CLI < Thor
-    using AgileUtils::HashExt
-
     # rubocop:disable AmbiguousOperator, LineLength
     desc "find", "List files by extensions, patterns, and simple criteria"
     method_option *AgileUtils::Options::BASE_DIR

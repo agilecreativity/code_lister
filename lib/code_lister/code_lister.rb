@@ -1,7 +1,5 @@
-require "agile_utils"
 module CodeLister
   CustomError = Class.new(StandardError)
-
   class << self
     # Execute the command in the shell and extract the output to be used
     #

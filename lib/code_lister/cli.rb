@@ -1,5 +1,3 @@
-require "thor"
-require "agile_utils"
 module CodeLister
   class CLI < Thor
     # rubocop:disable AmbiguousOperator, LineLength

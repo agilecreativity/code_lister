@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require_relative "../lib/code_lister"
-include CodeLister
 if ARGV.empty?
   CodeLister::CLI.start(%w[usage])
 else

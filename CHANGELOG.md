@@ -1,5 +1,9 @@
 ### Changelogs
 
+#### 0.2.4
+
+- Use the latest version of `agile_utils`
+
 #### 0.2.3
 
 - Use `require` instead of `require_relative`

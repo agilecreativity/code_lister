@@ -1,4 +1,7 @@
-require_relative "code_lister/version"
-require_relative "code_lister/code_lister"
-require_relative "code_lister/cli"
-require_relative "code_lister/main"
+require "thor"
+require "agile_utils"
+require "code_lister/version"
+require "code_lister/code_lister"
+require "code_lister/cli"
+require "code_lister/main"
+include CodeLister

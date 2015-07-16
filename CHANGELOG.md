@@ -1,5 +1,9 @@
 ### Changelogs
 
+#### 0.2.6
+
+- Make use of optimisic gem versioning
+
 #### 0.2.5
 
 - Replace active_support_core-ext with activesupport as it is no longer maintained.

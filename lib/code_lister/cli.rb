@@ -12,7 +12,7 @@ module CodeLister
     method_option *AgileUtils::Options::VERSION
 
     def find
-      opts = options.symbolize_keys
+      opts = options.deep_symbolize_keys
       if opts[:version]
         puts "You are using CodeLister Version #{CodeLister::VERSION}"
         exit

@@ -1,5 +1,10 @@
 ### Changelogs
 
+#### 0.2.5
+
+- Replace active_support_core-ext with activesupport as it is no longer maintained.
+- Update dependencies
+
 #### 0.2.4
 
 - Use the latest version of `agile_utils`

@@ -1,5 +1,7 @@
 require "thor"
 require "agile_utils"
+require "active_support"
+require "active_support/core_ext"
 require "code_lister/version"
 require "code_lister/code_lister"
 require "code_lister/cli"

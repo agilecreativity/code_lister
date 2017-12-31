@@ -1,5 +1,9 @@
 ### Changelogs
 
+#### 0.2.7
+
+- Update gem's dependencies
+
 #### 0.2.6
 
 - Make use of optimisic gem versioning

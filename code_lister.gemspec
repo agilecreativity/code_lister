@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description = "List/filter files similar to 'find then grep' command in Linux/Unix based system"
   spec.homepage    = "https://github.com/agilecreativity/code_lister"
   spec.license     = "MIT"
-  spec.required_ruby_version = ">= 1.9.3"
+  spec.required_ruby_version = ">= 2.0.0"
   spec.files       = Dir.glob("{bin,lib,spec}/**/*") + %w[Gemfile
                                                           Rakefile
                                                           code_lister.gemspec
@@ -23,15 +23,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
+  spec.add_development_dependency "awesome_print", "~> 1.8"
+  spec.add_development_dependency "bundler", "~> 1.16"
+  spec.add_development_dependency "fuubar", "~> 2.2"
+  spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "pry", "~> 0.11"
+  spec.add_development_dependency "rake", "~> 12.3"
+  spec.add_development_dependency "rspec", "~> 3.7"
+  spec.add_development_dependency "rubocop", "~> 0.52"
+  spec.add_runtime_dependency "activesupport", "~> 5.1"
   spec.add_runtime_dependency "agile_utils", "~> 0.3"
-  spec.add_runtime_dependency "activesupport", "~> 4.2"
-  spec.add_runtime_dependency "thor", "~> 0.19"
-  spec.add_development_dependency "awesome_print", "~> 1.2"
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "fuubar", "~> 2.0"
-  spec.add_development_dependency "guard-rspec", "~> 4.3"
-  spec.add_development_dependency "pry", "~> 0.10"
-  spec.add_development_dependency "rake", "~> 10.3"
-  spec.add_development_dependency "rspec", "~> 3.3"
-  spec.add_development_dependency "rubocop", "~> 0.26"
+  spec.add_runtime_dependency "thor", "~> 0.20"
 end
